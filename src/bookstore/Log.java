@@ -193,13 +193,11 @@ public class Log extends javax.swing.JFrame {
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
         String result = null;
-          String login_id=Username.getText();
+        BookStore store=new BookStore();
+     String login_id=Username.getText();
         String password=Password.getText();
-        try{  
-Class.forName("com.mysql.jdbc.Driver");  
-Connection con=DriverManager.getConnection(  
-"jdbc:mysql://localhost:3306/","root","root123");  
-//here sonoo is database name, root is username and password  
+    try{
+        Connection con=store.Database_connection();
 Statement stmt=con.createStatement();  
  
 stmt.executeQuery("use BookStore");  
@@ -215,8 +213,7 @@ else
     System.out.println("Wrong Username or Password");
 }
 }catch(Exception e){ System.out.println(e);}
-      
-      
+
         
         
     }//GEN-LAST:event_LoginActionPerformed
@@ -274,4 +271,7 @@ else
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+   
+
 }

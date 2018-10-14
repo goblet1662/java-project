@@ -15,23 +15,25 @@ public class BookStore {
 
 public static void main(String args[]){  
 
-Database_connection();
+
 
  
 Log login=new Log();
 login.setVisible(true);
 System.out.println("hii");
 }  
-public static void Database_connection(){
-    
+public  Connection Database_connection(){
+Connection con=null;    
 try{  
 Class.forName("com.mysql.jdbc.Driver");  
-Connection con=DriverManager.getConnection(  
+ con=DriverManager.getConnection(  
 "jdbc:mysql://localhost:3306/","root","root123");  
-//here sonoo is database name, root is username and password  
+//here  root is username and root123 is password  
 Statement stmt=con.createStatement();  
 
+
 }catch(Exception e){ System.out.println(e);}
+return con;
 }  
 }  
  
