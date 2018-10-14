@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javafx.scene.control.ProgressBar;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -234,11 +235,12 @@ while(rs.next())
 con.close();
  
 if(password.equals(result)){
-      System.out.println("Success");
+      
+      JOptionPane.showMessageDialog(null, "Logged In Successfull!");
       }
 else
 {
-    System.out.println("Wrong Username or Password");
+   JOptionPane.showMessageDialog(null, "Wrong Login ID or Password","Error!",JOptionPane.INFORMATION_MESSAGE);
 }
 
 
