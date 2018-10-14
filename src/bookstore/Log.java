@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javafx.scene.control.ProgressBar;
+import javax.swing.Timer;
 
 /**
  *
@@ -21,6 +23,8 @@ public class Log extends javax.swing.JFrame {
      */
     public Log() {
         initComponents();
+        myProgresBar.setVisible(false);
+        
     }
 
     /**
@@ -44,6 +48,7 @@ public class Log extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         Password = new javax.swing.JPasswordField();
         Login = new javax.swing.JButton();
+        myProgresBar = new javax.swing.JProgressBar();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -72,7 +77,7 @@ public class Log extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -136,13 +141,16 @@ public class Log extends javax.swing.JFrame {
             }
         });
 
-        Login.setBackground(new java.awt.Color(51, 153, 255));
+        Login.setBackground(new java.awt.Color(255, 255, 255));
         Login.setText("Login");
         Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoginActionPerformed(evt);
             }
         });
+
+        myProgresBar.setBackground(new java.awt.Color(255, 255, 255));
+        myProgresBar.setForeground(new java.awt.Color(0, 102, 102));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,17 +160,19 @@ public class Log extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Username)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Password, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(Login)))
-                .addGap(0, 28, Short.MAX_VALUE))
+                        .addComponent(Login))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(myProgresBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(Username)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Password, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +190,9 @@ public class Log extends javax.swing.JFrame {
                 .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Login)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(myProgresBar, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -192,19 +204,35 @@ public class Log extends javax.swing.JFrame {
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
+        
+       
         String result = null;
+       
         BookStore store=new BookStore();
-     String login_id=Username.getText();
-        String password=Password.getText();
+     String login_id=Username.getText();    
+      String password=Password.getText();
+         
+  
+        
+       
+       
     try{
+    myProgresBar.setMaximum(100);
+        myProgresBar.setStringPainted(true);
+        
         Connection con=store.Database_connection();
 Statement stmt=con.createStatement();  
  
+
 stmt.executeQuery("use BookStore");  
-ResultSet rs=stmt.executeQuery("select Password from Users where Login_ID='"+login_id+"'" );  
+ResultSet rs=stmt.executeQuery("select Password from Users where Login_ID='"+login_id+"'" );
+myProgresBar.setVisible(true);
+myProgresBar.setValue(100);
+
 while(rs.next())  
     result=rs.getString(1); 
 con.close();
+ 
 if(password.equals(result)){
       System.out.println("Success");
       }
@@ -212,6 +240,8 @@ else
 {
     System.out.println("Wrong Username or Password");
 }
+
+
 }catch(Exception e){ System.out.println(e);}
 
         
@@ -220,6 +250,7 @@ else
 
     private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed
         // TODO add your handling code here:
+       
     }//GEN-LAST:event_UsernameActionPerformed
 
     /**
@@ -253,6 +284,7 @@ else
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Log().setVisible(true);
+                
             }
         });
     }
@@ -270,6 +302,7 @@ else
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar myProgresBar;
     // End of variables declaration//GEN-END:variables
 
    
