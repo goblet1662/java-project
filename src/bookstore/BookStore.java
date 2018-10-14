@@ -5,6 +5,7 @@
  */
 package bookstore;
 import java.sql.*;  
+import javafx.scene.control.ProgressBar;
 /**
  *
  * @author user
@@ -25,11 +26,12 @@ System.out.println("hii");
 public  Connection Database_connection(){
 Connection con=null;    
 try{  
+   
 Class.forName("com.mysql.jdbc.Driver");  
  con=DriverManager.getConnection(  
 "jdbc:mysql://localhost:3306/","root","root123");  
 //here  root is username and root123 is password  
-Statement stmt=con.createStatement();  
+
 
 
 }catch(Exception e){ System.out.println(e);}
