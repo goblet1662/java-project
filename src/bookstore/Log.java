@@ -18,7 +18,7 @@ import javax.swing.Timer;
  * @author user
  */
 public class Log extends javax.swing.JFrame {
-SessionManager session=new SessionManager();
+
     /**
      * Creates new form Log
      */
@@ -198,7 +198,7 @@ SessionManager session=new SessionManager();
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
         
-       
+
         String result = null;
        
         BookStore store=new BookStore();
@@ -226,13 +226,14 @@ con.close();
 if(password.equals(result)){
       
       JOptionPane.showMessageDialog(null, "Logged In Successfull!");
-      session.createLoginSession(login_id);
-      dispose();
+      
+      
       
       }
 else
 {
    JOptionPane.showMessageDialog(null, "Wrong Login ID or Password","Error!",JOptionPane.INFORMATION_MESSAGE);
+  
 }
 
 
