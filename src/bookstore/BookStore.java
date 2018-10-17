@@ -17,11 +17,9 @@ public class BookStore {
 public static void main(String args[]){  
 
 
-
  
-Log login=new Log();
+Log login= new Log();
 login.setVisible(true);
-System.out.println("hii");
 }  
 public  Connection Database_connection(){
 Connection con=null;    
