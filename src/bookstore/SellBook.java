@@ -265,7 +265,7 @@ BookStore store=new BookStore();
                     if(sbook!=null){
                         if( new SellBook().addNew(sbook,qyt)!=""){
                             JOptionPane.showMessageDialog(null, "Order successfully inserted");
-                            this.dispose();
+                           
                         }
                     }
                     

@@ -254,7 +254,7 @@ public class OrderBook extends javax.swing.JFrame {
         if(!new OrderBook().checkIfUserExists(sbook)){                    
                    if( new OrderBook().addNew(sbook,qyt)!=null){
                        JOptionPane.showMessageDialog(null, "Order successfully inserted");
-                       this.dispose();
+                       
                    }
                 }
                 else{
