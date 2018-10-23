@@ -25,7 +25,7 @@ public  Connection Database_connection(){
 try{  
 Class.forName("com.mysql.jdbc.Driver");  
  con=DriverManager.getConnection(  
-"jdbc:mysql://localhost:3306/","root","root123");  
+"jdbc:mysql://localhost:3306/","root","root");  
 //here  is database name, root is username and password  
 Statement stmt=con.createStatement();  
  
